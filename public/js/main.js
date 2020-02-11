@@ -1,7 +1,7 @@
 var service = {
     makeRequest: function () {
         $.ajax({
-            url: "api/go",
+            url: "api/action",
             method: "POST",
             data: JSON.stringify({}),
             processData: false,

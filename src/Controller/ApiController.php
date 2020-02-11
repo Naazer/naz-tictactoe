@@ -19,12 +19,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ApiController extends AbstractController
 {
     /**
-     * @Route("/go", name="api_go", methods="POST", defaults={"_format": "json"})
+     * @Route("/action", name="api_action", methods="POST", defaults={"_format": "json"})
      *
      * @param Request
      * @return JsonResponse
      */
-    public function go(): JsonResponse
+    public function action(): JsonResponse
     {
         return new JsonResponse([], Response::HTTP_OK);
     }
