@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+use App\Model\Game;
+use App\Service\GameService;
+use App\Validator\RequestValidator;
+use App\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,13 +23,34 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ApiController extends AbstractController
 {
     /**
-     * @Route("/action", name="api_action", methods="POST", defaults={"_format": "json"})
+     * @Route("/action", name="api_action", methods={"POST"})
      *
-     * @param Request
+     * @param Request $request
+     * @param GameService $game
+     *
      * @return JsonResponse
+     * @throws BadRequestException
      */
-    public function action(): JsonResponse
+    public function action(Request $request, GameService $game): JsonResponse
     {
-        return new JsonResponse([], Response::HTTP_OK);
+        $data = $request->getContent();
+        $validator = new RequestValidator();
+        $validator->isValid($data);
+        $data = json_decode($data);
+        $next = $game->action($data->state);
+
+        $response = [
+            'state' => $data->state,
+            'botAction' => $next
+        ];
+
+        $game = new Game($data->state, $next);
+        if ($game->isStandoff()) {
+            $response['standoff'] = $game->isStandoff();
+        } elseif (!empty($game->getWinner())) {
+            $response['winner'] = $game->getWinner();
+        }
+
+        return new JsonResponse($response, Response::HTTP_OK);
     }
 }
