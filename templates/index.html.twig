@@ -7,8 +7,27 @@
 
 {% block body %}
     <div class="container">
-
         <h1 class="title">Naz TicTacToe</h1>
+        <div class="alert" role="alert" id="winner"></div>
+
+        <table id="tictactoe-table" data-finished="false">
+            <tr>
+                <td data-x=0 data-y=0 data-unit=""></td>
+                <td class="vert" data-x=1 data-y=0 data-unit=""></td>
+                <td data-x=2 data-y=0 data-unit=""></td>
+            </tr>
+            <tr>
+                <td class="hori" data-x=0 data-y=1 data-unit=""></td>
+                <td class="vert hori" data-x=1 data-y=1 data-unit=""></td>
+                <td class="hori" data-x=2 data-y=1 data-unit=""></td>
+            </tr>
+            <tr>
+                <td data-x=0 data-y=2 data-unit=""></td>
+                <td class="vert" data-x=1 data-y=2 data-unit=""></td>
+                <td data-x=2 data-y=2 data-unit=""></td>
+            </tr>
+        </table>
+        <button class="btn btn-block btn-dark restart">Restart Game</button>
     </div>
 {% endblock %}
 
