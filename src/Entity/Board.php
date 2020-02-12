@@ -12,42 +12,29 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Board
 {
-    const DEFAULT_DIMENSION = 3;
-    const DEFAULT_MATRIX_VAL = null;
-
     /**
      * @var ArrayCollection
      */
     private $actions;
 
     /**
-     * @var int
-     */
-    private $dimension;
-
-    /**
-     * @var array
-     */
-    private $matrix;
-
-    /**
      * @var bool
+     *
+     * @ORM\Column(type="boolean")
      */
     private $completed = false;
 
     /**
      * Board constructor.
-     *
-     * @param int|null $dimension
+     * @param ArrayCollection|null $actions
      */
-    public function __construct(?int $dimension)
+    public function __construct(?ArrayCollection $actions = null)
     {
-        $this->prepareDimension($dimension);
-        $this->clearMatrix();
+        is_null($actions) || $this->actions = new ArrayCollection();
     }
 
     /**
-     * @return ArrayCollection
+     * @return ArrayCollection|Action[]
      */
     public function getActions(): ArrayCollection
     {
@@ -55,51 +42,22 @@ class Board
     }
 
     /**
-     * @param ArrayCollection $actions
+     * @param Action $action
+     * @return Board
      */
-    public function setActions(ArrayCollection $actions): void
+    public function addAction(Action $action): Board
     {
-        $this->actions = $actions;
+        $this->actions->add($action);
+
+        return $this;
     }
 
     /**
      * @param Action $action
      */
-    public function addAction(Action $action)
+    public function removeAction(Action $action)
     {
-        $this->actions->add($action);
-    }
-
-    /**
-     * @return int
-     */
-    public function getDimension(): int
-    {
-        return $this->dimension;
-    }
-
-    /**
-     * @param int $dimension
-     */
-    public function setDimension(int $dimension): void
-    {
-        $this->dimension = $dimension;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMatrix(): array
-    {
-        return $this->matrix;
-    }
-
-    /**
-     * @param array $matrix
-     */
-    public function setMatrix(array $matrix): void
-    {
-        $this->matrix = $matrix;
+        $this->actions->removeElement($action);
     }
 
     /**
@@ -112,26 +70,12 @@ class Board
 
     /**
      * @param bool $completed
+     * @return Board
      */
-    public function setCompleted(bool $completed): void
+    public function setCompleted(bool $completed): Board
     {
         $this->completed = $completed;
-    }
 
-    /**
-     * @param int|null $dimension
-     */
-    private function prepareDimension(?int $dimension)
-    {
-        $this->dimension = $dimension ?? self::DEFAULT_DIMENSION;
-    }
-
-    /**
-     * Fill matrix with empty fields
-     */
-    private function clearMatrix()
-    {
-        $defaultValues = array_fill(0, $this->getDimension(), self::DEFAULT_MATRIX_VAL);
-        $this->matrix = array_fill(0, $this->getDimension(), $defaultValues);
+        return $this;
     }
 }

@@ -2,90 +2,91 @@
 
 namespace App\Entity;
 
+
 /**
  * Class Action
  * @package App\Entity
+ *
+ * @ORM\Entity()
  *
  * @author Nazar Salo <salo.nazar@gmail.com>
  */
 class Action
 {
-    const DEFAULT_PLAYER_UNIT = 1;
+    const PLAYER_UNIT = 'X';
+    const BOT_UNIT = '0';
+    const EMPTY_UNIT = '';
+
 
     /**
-     * The unit could be 1 (represent X) and 0
-     * @var integer
+     * @var string
      */
     private $unit;
 
     /**
-     * @var integer
+     * @var integer|null
      */
     private $coordinateX;
 
     /**
-     * @var integer
+     * @var integer|null
      */
     private $coordinateY;
 
     /**
-     * Action constructor.
-     * @param int $coordinateX
-     * @param int $coordinateY
-     * @param string|null $unit
+     * @return string
      */
-    public function __construct(int $coordinateX, int $coordinateY, ?string $unit = self::DEFAULT_PLAYER_UNIT)
-    {
-        $this->unit = $unit;
-        $this->coordinateX = $coordinateX;
-        $this->coordinateY = $coordinateY;
-    }
-
-    /**
-     * @return int
-     */
-    public function getUnit(): int
+    public function getUnit(): string
     {
         return $this->unit;
     }
 
     /**
-     * @param int $unit
+     * @param string $unit
+     * @return Action
      */
-    public function setUnit(int $unit): void
+    public function setUnit(string $unit): Action
     {
         $this->unit = $unit;
+
+        return $this;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getCoordinateX(): int
+    public function getCoordinateX(): ?int
     {
         return $this->coordinateX;
     }
 
     /**
-     * @param int $coordinateX
+     * @param int|null $coordinateX
+     * @return Action
      */
-    public function setCoordinateX(int $coordinateX): void
+    public function setCoordinateX(?int $coordinateX): Action
     {
         $this->coordinateX = $coordinateX;
+
+        return $this;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getCoordinateY(): int
+    public function getCoordinateY(): ?int
     {
         return $this->coordinateY;
     }
 
     /**
-     * @param int $coordinateY
+     * @param int|null $coordinateY
+     * @return Action
      */
-    public function setCoordinateY(int $coordinateY): void
+    public function setCoordinateY(?int $coordinateY): Action
     {
         $this->coordinateY = $coordinateY;
+
+        return $this;
     }
 }
