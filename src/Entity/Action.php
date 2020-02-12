@@ -14,19 +14,8 @@ namespace App\Entity;
 class Action
 {
     const PLAYER_UNIT = 'X';
-    const BOT_UNIT = '0';
+    const BOT_UNIT = 'O';
     const EMPTY_UNIT = '';
-
-
-    /**
-     * @var string
-     */
-    private $unit;
-
-    /**
-     * @var integer|null
-     */
-    private $coordinateX;
 
     /**
      * @var integer|null
@@ -34,9 +23,19 @@ class Action
     private $coordinateY;
 
     /**
-     * @return string
+     * @var integer|null
      */
-    public function getUnit(): string
+    private $coordinateX;
+
+    /**
+     * @var string
+     */
+    private $unit;
+
+    /**
+     * @return string|null
+     */
+    public function getUnit(): ?string
     {
         return $this->unit;
     }

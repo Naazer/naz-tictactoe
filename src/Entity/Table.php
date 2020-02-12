@@ -5,12 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Class Board
+ * Class Table
  * @package App\Entity
  *
  * @author Nazar Salo <salo.nazar@gmail.com>
  */
-class Board
+class Table
 {
     /**
      * @var ArrayCollection
@@ -25,7 +25,7 @@ class Board
     private $completed = false;
 
     /**
-     * Board constructor.
+     * Table constructor.
      * @param ArrayCollection|null $actions
      */
     public function __construct(?ArrayCollection $actions = null)
@@ -43,9 +43,9 @@ class Board
 
     /**
      * @param Action $action
-     * @return Board
+     * @return Table
      */
-    public function addAction(Action $action): Board
+    public function addAction(Action $action): Table
     {
         $this->actions->add($action);
 
@@ -70,9 +70,9 @@ class Board
 
     /**
      * @param bool $completed
-     * @return Board
+     * @return Table
      */
-    public function setCompleted(bool $completed): Board
+    public function setCompleted(bool $completed): Table
     {
         $this->completed = $completed;
 
