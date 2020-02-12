@@ -30,7 +30,7 @@ class Board
      */
     public function __construct(?ArrayCollection $actions = null)
     {
-        is_null($actions) || $this->actions = new ArrayCollection();
+        is_null($actions) || $this->actions = $actions;
     }
 
     /**

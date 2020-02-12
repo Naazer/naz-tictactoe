@@ -49,7 +49,3 @@ To run the tests just access the path of project and run:
 ```bash
 $ bin/phpunit
 ```
-
-# Usage
-
-@TODO
